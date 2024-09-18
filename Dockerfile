@@ -7,7 +7,7 @@ FROM alpine/git:2.43.0 as download
 # NOTE: CivitAI usually requires an API token, so you need to add it in the header
 #       of the wget command if you're using a model from CivitAI.
 RUN apk add --no-cache wget && \
-    wget -q -O /model.safetensors 'https://civitai.com/api/download/models/265938?type=Model&format=SafeTensor&size=pruned&fp=fp16&token=caf9045fbe514e2e2b442770d2410920'
+    wget -q -O /model.safetensors 'https://huggingface.co/SEVUNX/sdxl_model/resolve/9ef3d61c0768695513b4b8c53003d347c93c71af/download_2/protovisionXLHighFidelity3D_releaseV660Bakedvae.safetensors'
 
 # ---------------------------------------------------------------------------- #
 #                        Stage 2: Build the final image                        #
@@ -62,7 +62,7 @@ RUN cd /stable-diffusion-webui/extensions/sd-webui-controlnet && pip install -r 
 # https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors
 RUN mkdir -p /stable-diffusion-webui/models/ControlNet
 RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusers_xl_canny_full.safetensors https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_canny_full.safetensors
-RUN wget -q -O stable-diffusion-webui/models/ControlNet/iffusion_pytorch_model.safetensors  https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors
+RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusion_pytorch_model.safetensors  https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors
 # Set permissions and specify the command to run
 RUN chmod +x /start.sh
 CMD /start.sh 

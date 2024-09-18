@@ -60,6 +60,7 @@ RUN cd /stable-diffusion-webui/extensions/sd-webui-controlnet && pip install -r 
 #  create the folder models/ControlNet if it doesn't exist
 RUN mkdir -p /stable-diffusion-webui/models/ControlNet
 RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusers_xl_canny_full.safetensors https://huggingface.co/lllyasviel/sd_control_collection/resolve/main/diffusers_xl_canny_full.safetensors
+RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusion_pytorch_model.safetensors  https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors
 
 # Set permissions and specify the command to run
 RUN chmod +x /start.sh
