@@ -25,6 +25,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN export COMMANDLINE_ARGS="--skip-torch-cuda-test --precision full --no-half"
 RUN export TORCH_COMMAND='pip install ---no-cache-dir torch==2.1.2+cu118 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118'
 
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y g++ && \
+    apt-get clean -y && rm -rf /var/lib/apt/lists/*
+
 RUN apt-get update && \
     apt install -y \
     fonts-dejavu-core rsync git jq moreutils aria2 wget libgoogle-perftools-dev libtcmalloc-minimal4 procps libgl1 libglib2.0-0 && \
@@ -63,10 +68,9 @@ RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusers_xl_canny_full.
 RUN wget -q -O stable-diffusion-webui/models/ControlNet/diffusion_pytorch_model.safetensors  https://huggingface.co/InstantX/InstantID/resolve/main/ControlNetModel/diffusion_pytorch_model.safetensors
 
 
-RUN git clone https://github.com/Gourieff/sd-webui-reactor.git /stable-diffusion-webuiextensions/sd-webui-reactor
-RUN git checkout v0.6.1
+RUN git clone https://github.com/Gourieff/sd-webui-reactor.git /stable-diffusion-webui/extensions/sd-webui-reactor
 
-RUN git clone --depth=1 https://github.com/Bing-su/adetailer.git /stable-diffusion-webuiextensions/adetailer
+RUN git clone --depth=1 https://github.com/Bing-su/adetailer.git /stable-diffusion-webui/extensions/adetailer
 
 
 RUN echo "Installing dependencies for ReActor" && \
