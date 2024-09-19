@@ -67,6 +67,13 @@ def run_controlnet_preprocessor(inference_request):
                                       json=inference_request, timeout=600)
     return response.json()
 
+def run_upscaler_preprocessor(inference_request):
+    """
+    Run controlnet preprocessor.
+    """
+    response = automatic_session.post(url=f'http://127.0.0.1:3000/extra-single-image',
+                                      json=inference_request, timeout=600)
+    return response.json()
 
 
 # ---------------------------------------------------------------------------- #
@@ -89,6 +96,8 @@ def handler(event):
         json = run_controlnet_models()
     elif mode == "controlnet_detect":
         json = run_controlnet_preprocessor(data)
+    elif mode == "extra-single-image":
+        json = run_upscaler_preprocessor(data)
     else:
         print(f"Received event: {event}")
         raise ValueError(f"Invalid mode: {mode}")
