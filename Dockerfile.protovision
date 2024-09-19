@@ -6,7 +6,7 @@ FROM alpine/git:2.43.0 as download
 # NOTE: CivitAI usually requires an API token, so you need to add it in the header
 #       of the wget command if you're using a model from CivitAI.
 RUN apk add --no-cache wget && \
-    wget -q -O /model.safetensors 'https://huggingface.co/mjakhar1212/shambalaXl/resolve/main/shambhalaXL_stableAnime.safetensors?download=true'
+    wget -q -O /model.safetensors 'https://huggingface.co/SEVUNX/sdxl_model/resolve/9ef3d61c0768695513b4b8c53003d347c93c71af/download_2/protovisionXLHighFidelity3D_releaseV660Bakedvae.safetensors'
 
 # ---------------------------------------------------------------------------- #
 #                        Stage 2: Build the final image                        #
