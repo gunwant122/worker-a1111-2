@@ -55,7 +55,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 ADD src .
 COPY builder/cache.py /stable-diffusion-webui/cache.py
 RUN cd /stable-diffusion-webui && python cache.py --use-cpu=all  --lowram --ckpt /model.safetensors
-RUN cd /stable-diffusion-webui/models/ControlNet && aria2c -o sd_xl_refiner_1.0.safetensors https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors
 
 
 # install controlnet from git clone --depth=1 https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet
@@ -93,11 +92,11 @@ RUN echo "Installing the model for ReActor" && \
 RUN echo "Configuring ReActor to use the GPU instead of CPU" && \
     echo "CUDA" > /stable-diffusion-webui/extensions/sd-webui-reactor/last_device.txt
 
-RUN   echo "Downloading Upscalers"
-    mkdir -p /stable-diffusion-webui/models/ESRGAN
-    cd /stable-diffusion-webui/models/ESRGAN
-    aria2c -o ESRGAN.pth https://github.com/cszn/KAIR/releases/download/v1.0/ESRGAN.pth
-    
+RUN echo "Downloading Upscalers" && \
+    mkdir -p /stable-diffusion-webui/models/ESRGAN && \
+    cd /stable-diffusion-webui/models/ESRGAN && \
+    aria2c -o RealESRGAN_x4plus.pth https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth
+        
 
 # add agent schedular
 # RUN git clone "https://github.com/ArtVentureX/sd-webui-agent-scheduler.git" extensions/agent-scheduler
